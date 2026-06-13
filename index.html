@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>0614小組破冰題目</title>
+	<style>
+		@import url(http://fonts.googleapis.com/css?family=Open+Sans:300);
+		html, body
+		{
+			margin:0;
+			padding:0;
+			width:100%;
+/*			height:100%;*/
+			font-family: 'Open Sans', sans-serif , 微軟正黑體;
+		}
+
+		#pagecontent
+		{
+/*			height: 100%;*/
+			width: 100%;
+			box-sizing: border-box;
+			padding: 10px;
+		}
+
+		#card
+		{
+			width: 100%;
+			box-sizing: border-box;
+			border-radius: 10px;
+			background-color: rgba(50,180,120,0.4);
+			padding: 10px;
+			box-shadow: 0 0 5px rgba(0,0,0,0.75);
+		}
+
+		#question
+		{
+			width: 100%;
+			font-size: 2em;
+			font-weight: bold;
+			text-align: center;
+			padding: 20px 0;
+		}
+
+		#changebtn
+		{
+			width: 60%;
+			margin: 0 20%;
+			padding: 5px;
+			font-size: 1.5em;
+			box-sizing: border-box;
+			background-color: rgb(100,180,220);
+			border: solid 1px rgb(100,100,100);
+			border-radius: 10px;
+			color: #000;
+			text-align: center;
+		}
+
+		h3, p
+		{
+			margin-top: 5px;
+			margin-bottom: 5px;
+			font-weight: normal;
+		}
+	</style>
+</head>
+<body>
+	<div id="pagecontent">
+		<div id="card">
+			<div id="question"></div>
+			<div id="changebtn">換一個</div>
+		</div>
+	</div>
+
+	<script>
+		var alldata = [
+			"<h3>答案:</h3><p>但以理在獅子坑，神派遣天使封住獅子的口，獅子沒有傷害他</p><hr><h3>提示:</h3><p>一個被陷害的人，他受到國王的喜愛，有動物</p><hr>"
+		];
+
+		window.addEventListener('DOMContentLoaded',function () {
+			change_content();
+		});
+
+		function enable_btn(bEnable)
+		{
+			if(bEnable)
+			{
+				document.getElementById("changebtn").style["background-color"] = "rgb(100,180,220)";
+				document.getElementById("changebtn").addEventListener("click", change_content);
+			}
+			else
+			{
+				document.getElementById("changebtn").style["background-color"] = "rgba(100,100,100,0.5)";
+				document.getElementById("changebtn").removeEventListener("click", change_content);
+			}
+		}
+
+		var h_wait;
+		function change_content()
+		{
+			document.getElementById("question").innerHTML = alldata[Math.floor(Math.random()*alldata.length)];
+			enable_btn(false);
+
+			// set time out disable
+			var time_rest = 5;
+			document.getElementById("changebtn").innerText = "換一個 (" + time_rest + ")";
+			var h_wait = setInterval(function() {
+				if(--time_rest == 0) {
+					document.getElementById("changebtn").innerText = "換一個";
+					clearInterval(h_wait);
+					enable_btn(true);
+				} else {
+					document.getElementById("changebtn").innerText = "換一個 (" + time_rest + ")";
+				}
+			}, 1000);
+		}
+		
+	</script>
+</body>
+</html>
